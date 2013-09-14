@@ -67,12 +67,14 @@ public class Oper extends JavaPlugin implements Listener {
 				sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.RED + "You don't have an Oper Password, Contact the server administrators for help!");
 			}
 		} else if(label.equalsIgnoreCase("isop")) {
-			if(Bukkit.getPlayer(args[1]) != null) {
-				Player p = Bukkit.getPlayer((args[1]));
-				if(p.isOp()) {
-					sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.WHITE + p.getDisplayName() + " Is an OP!");
+			if(args.length != 1) {
+				sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.RED + "Invalid arguments, please do /isop <player>");
+			} else {
+				Player check = Bukkit.getServer().getPlayer(args[0]);
+				if(check.isOp()) {
+					sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.AQUA + args[0] + " Is an Operator");
 				} else {
-					sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.WHITE + p.getDisplayName() + " Is Not an OP!");
+					sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.AQUA + args[0] + " Is NOT an operator");
 				}
 			}
 		}
