@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Oper extends JavaPlugin implements Listener {
@@ -15,17 +15,20 @@ public class Oper extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(this, this);
+		this.saveDefaultConfig();
 	}
-	
+
 	@Override
 	public void onDisable() {
 		
 	}
 	
 	@EventHandler
-	public void onPlayerLogin(PlayerLoginEvent e) {
+	public void onPlayerLogin(PlayerJoinEvent e) {
 		if(e.getPlayer().isOp()) {
-			e.getPlayer().setOp(false);
+			Player p = e.getPlayer();
+			p.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.AQUA + "You have been deopped, please authenticate.");
+			p.setOp(false);
 		}
 	}
 	
@@ -33,14 +36,32 @@ public class Oper extends JavaPlugin implements Listener {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String args[]) {
 		String user = sender.getName();
 		if(label.equalsIgnoreCase("oper")) {
-			if(!(this.getConfig().getString("passwords." + user).isEmpty())) {
-				String pass = this.getConfig().getString("passwords." + user);
-				if(args[1].equals(pass)) {
-					sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.GREEN + "You have successfully authed yourself. You now have OP!");
-					sender.setOp(true);
-					sendOpMessage("&7[Oper] &a" + user + " Has just successfully authenticated!");
+			if(this.getConfig().contains("passwords." + user)) {
+				if(args.length == 1) {
+					if(args[0].equalsIgnoreCase("reload")) {
+						if(sender.isOp()) {
+							this.reloadConfig();
+							sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.WHITE + "The Configuration has been reloaded.");
+						} else {
+							sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.RED + "You don't have permission to preform that action.");
+						}
+					} else if(args[0].equalsIgnoreCase("help")) {
+						sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.WHITE + "Oper is a security Plugin for Bukkit");
+						sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.AQUA + "It will deop Opped users on login, and make them use a password!");
+						sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.WHITE + "/oper <password> :: Authenticate yourself with <password>");
+						sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.WHITE + "/oper reload :: Reload the Oper Config");
+					} else {
+					if(args[0].equals(this.getConfig().getString("passwords." + user))) {
+						sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.GREEN + "You have successfully authed yourself. You now have OP!");
+						sender.setOp(true);
+						sendOpMessage("&7[Oper] &a" + user + " Has just successfully authenticated!");
+					} else {
+						sendOpMessage("&7[Oper] &4" + user + " &c has just attemted to authenticate!");
+						sender.sendMessage(ChatColor.GRAY + "[Oper] "  + ChatColor.RED + "That password is invalid!");
+					}
+					}
 				} else {
-					sendOpMessage("&7[Oper] &4" + user + " &c has just attemted to authenticate!");
+					sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.RED + "invalid arguments, please do /oper help");
 				}
 			} else {
 				sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.RED + "You don't have an Oper Password, Contact the server administrators for help!");
