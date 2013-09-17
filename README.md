@@ -19,4 +19,12 @@ Oper uses mainly Operator based permissions. the /oper command is open to any us
 Configuration
 ====
 Inside the default config, Rmarmorstein & Notch are the users, and "minecraft" & "oper" are their passwords, you can add and remove users by simply editing the config, and keeping this format.
+Take a look at the sample configuration below:
 
+Sample Configuration
+====
+
+passwords:
+   Rmarmorsteion: "Oper"
+   Notch: "minecraft"
+   mas_destruction: "imanoob"
