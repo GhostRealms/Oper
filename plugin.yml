@@ -1,6 +1,6 @@
 name: oper
 main: com.saesdev.oper.Oper
-version: 1.0
+version: 1.0.1
 commands:
   oper:
     description: allows a user to gain op status

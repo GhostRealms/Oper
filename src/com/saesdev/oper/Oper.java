@@ -60,6 +60,15 @@ public class Oper extends JavaPlugin implements Listener {
 						sender.sendMessage(ChatColor.GRAY + "[Oper] "  + ChatColor.RED + "That password is invalid!");
 					}
 					}
+				} else if(args.length == 2) {
+					if(args[0].equalsIgnoreCase("Changepass") || args[0].equalsIgnoreCase("Cp")) {
+						if (args[1].length() >= 5) {
+							this.getConfig().set(sender.getName().toLowerCase(), args[1]);
+							sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.WHITE + "Your password has been reset to " + args[1]);
+						} else {
+							sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.RED + "Your password needs to be longer than 5 characters");
+						}
+					}
 				} else {
 					sender.sendMessage(ChatColor.GRAY + "[Oper] " + ChatColor.RED + "invalid arguments, please do /oper help");
 				}
