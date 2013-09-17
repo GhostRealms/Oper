@@ -23,8 +23,9 @@ Take a look at the sample configuration below:
 
 Sample Configuration
 ====
-
+<code>
 passwords:
    Rmarmorsteion: "Oper"
    Notch: "minecraft"
    mas_destruction: "imanoob"
+</code>
