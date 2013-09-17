@@ -25,7 +25,10 @@ Sample Configuration
 ====
 <code>
 passwords:
+
    Rmarmorsteion: "Oper"
+   
    Notch: "minecraft"
+   
    mas_destruction: "imanoob"
 </code>
