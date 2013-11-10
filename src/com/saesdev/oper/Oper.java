@@ -15,6 +15,8 @@ public class Oper extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(this, this);
+		getServer().getPluginManager().registerEvents(new psa(), this);
+		getCommand("lock").setExecutor(new lockdown());
 		this.saveDefaultConfig();
 	}
 
@@ -101,5 +103,13 @@ public class Oper extends JavaPlugin implements Listener {
 	String colorize(String m) {
 		m = m.replaceAll("&", "§");
 		return m;
+	}
+	
+	public void setLockdownMode(boolean mode) {
+		if(mode == true) {
+			
+		} else {
+			
+		}
 	}
 }
