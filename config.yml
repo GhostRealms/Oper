@@ -2,3 +2,5 @@ passwords:
   Rmarmorstion: "Oper"
   Notch: "minecraft"
   mas_destruction: "imanoob"
+settings:
+  log: true

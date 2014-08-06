@@ -1,8 +1,12 @@
 name: oper
 main: com.saesdev.oper.Oper
-version: 1.0.1
+version: 1.0.2
 commands:
   oper:
     description: allows a user to gain op status
   isop:
     description: check if a user has operator status
+  setpass:
+    description: set your password
+  logout:
+    description: logout and deop
